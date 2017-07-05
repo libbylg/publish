@@ -75,7 +75,47 @@ function global_indexs_init() {
     for (var i in global_modules) {
         var m = global_modules[i];
         if (null == global_indexs[m.name]) {
-            global_indexs[m.name] = {index: i, sel: false};
+            global_indexs[m.name] = {
+                index: i,
+                sel: false,
+                task: {
+                    mrege_request: {
+                        url: "",
+                        create_at: "",
+                        merged_at: "",
+                        closed_at: "",
+                        result: "",
+                        reason: "",
+                        author: {
+                            id: "",
+                            name: "",
+                        },
+                        source: {
+                            addr: "",
+                            branch: "",
+                        },
+                        target: {
+                            addr: "",
+                            branch: "",
+                        },
+                        build: {
+                            seq: 0,
+                            addr: "",
+                            start_at: "",
+                            end_at: "",
+                            result: "",
+                        },
+                    },
+                    summary: {
+                        success: 0,
+                        failure: 0,
+
+                        build_avg: 0,
+                        build_min: 0,
+                        build_max: 0,
+                    },
+                },
+            };
         }
     }
 }
