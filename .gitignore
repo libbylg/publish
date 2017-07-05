@@ -1,0 +1,7 @@
+.idea
+bin
+*.exe
+*.a
+*.bak
+*.dll
+*.zip
