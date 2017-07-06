@@ -47,11 +47,30 @@
 
     <div class="view-down" id="app-module-detial">
         <table v-if="'' != status.selname">
-            <tr class="detial-row"><td><p  class="detial-title">仓库地址:</p></td><td><a  class="detial-content" :href="module.addr" v-if="null != module">{{module.addr}}</a></td></tr>
-            <tr class="detial-row"><td><p  class="detial-title">发布任务:</p></td><td><a  class="detial-content" href="http://www.baidu.com">xxxx</a></td></tr>
-            <tr class="detial-row"><td><p  class="detial-title">构建任务:</p></td><td><a  class="detial-content" href="http://www.baidu.com">xxxx</a></td></tr>
-            <tr class="detial-row"><td><p  class="detial-title">发布状态:</p></td><td><a  class="detial-content" href="http://www.baidu.com">xxxx</a></td></tr>
-            <tr class="detial-row"><td><p  class="detial-title">汇总统计:</p></td><td><a  class="detial-content" href="http://www.baidu.com">xxxx</a></td></tr>
+            <tr class="detial-row">
+                <td><p class="detial-title">当前模块:</p></td>
+                <td><a class="detial-content" :href="module.addr" v-if="null != module">{{module.name}}</a></td>
+                <td>
+                    <p :style="success_percent"></p>
+                    <p :style="failure_percent"></p>
+                </td>
+            </tr>
+            <tr class="detial-row">
+                <td><p class="detial-title">发布任务:</p></td>
+                <td><a class="detial-content" href="http://www.baidu.com">xxxx</a></td>
+            </tr>
+            <tr class="detial-row">
+                <td><p class="detial-title">构建任务:</p></td>
+                <td><a class="detial-content" href="http://www.baidu.com">xxxx</a></td>
+            </tr>
+            <tr class="detial-row">
+                <td><p class="detial-title">发布状态:</p></td>
+                <td><a class="detial-content" href="http://www.baidu.com">xxxx</a></td>
+            </tr>
+            <tr class="detial-row">
+                <td><p class="detial-title">汇总统计:</p></td>
+                <td><a class="detial-content" href="http://www.baidu.com">xxxx</a></td>
+            </tr>
         </table>
         <div v-if="'' != status.selname">
             <textarea class="module-log-box" rows="10" cols="10">发布状态</textarea>

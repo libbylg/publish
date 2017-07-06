@@ -118,22 +118,6 @@ textarea {
     /*border: 1px solid green;*/
 }
 
-.aa {
-    margin: 0px;
-    padding: 4px 2px;
-    height: 0px;
-    border: 1px solid darkgreen;
-    background-color: red;
-    /*height: 20px;*/
-}
-
-.bb {
-    margin: 0px;
-    padding: 4px 2px;
-    height: 0px;
-    background-color: blue;
-}
-
 .module-log-box {
     width: 100%;
     border: 1px;

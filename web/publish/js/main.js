@@ -1,4 +1,10 @@
 /*********************************************************************************************************
+ * 展示模块时，每行多少列
+ * @type  {number}
+ */
+var colsize = 6;
+
+/**
  * 全局的模块列表
  * @type {[*]}
  */
@@ -12,26 +18,64 @@ var global_modules = [
  */
 var global_indexs = {};
 
-/**
- * 展示模块时，每行多少列
- * @type  {number}
- */
-var colsize = 6;
 
+/**
+ * 发布任务列表
+ * @type {{: {: string}}}
+ */
+var global_tasks = {
+    "": {
+        title: "title",
+        url: "",
+        create_at: "",
+        merged_at: "",
+        closed_at: "",
+        result: "",
+        reason: "",
+        author: {
+            id: "",
+            name: "",
+        },
+        source: {
+            addr: "",
+            branch: "",
+        },
+        target: {
+            addr: "",
+            branch: "",
+        },
+        build: {
+            seq: 0,
+            addr: "",
+            start_at: "",
+            end_at: "",
+            result: "",
+        },
+    },
+};
+
+/**
+ * 所有模块的统计摘要
+ * @type {{}}
+ */
+var global_summarys = {
+    "": {
+        success: 0,
+        failure: 0,
+        build_avg: 0,
+        build_min: 0,
+        build_max: 0,
+    }
+};
 
 /**
  * 一些全局的状态选项
  * @type {{selname: string}}
  */
 var global_status = {
-    selname: ""
+    selname: "",
+    logs: [""],
 };
-
-/**
- * 模块的日志内容
- * @type {string}
- */
-var module_log = '';
 
 
 /*********************************************************************************************************
@@ -78,44 +122,7 @@ function global_indexs_init() {
             global_indexs[m.name] = {
                 index: i,
                 sel: false,
-                task: {
-                    mrege_request: {
-                        url: "",
-                        create_at: "",
-                        merged_at: "",
-                        closed_at: "",
-                        result: "",
-                        reason: "",
-                        author: {
-                            id: "",
-                            name: "",
-                        },
-                        source: {
-                            addr: "",
-                            branch: "",
-                        },
-                        target: {
-                            addr: "",
-                            branch: "",
-                        },
-                        build: {
-                            seq: 0,
-                            addr: "",
-                            start_at: "",
-                            end_at: "",
-                            result: "",
-                        },
-                    },
-                    summary: {
-                        success: 0,
-                        failure: 0,
-
-                        build_avg: 0,
-                        build_min: 0,
-                        build_max: 0,
-                    },
-                },
-            };
+            }
         }
     }
 }
@@ -334,17 +341,50 @@ var AppModuleTable = new Vue({
 })
 
 var AppModuleDetial = new Vue({
-    el: '#app-module-detial',
-    data: {
-        status: global_status,
-    },
-    computed: {
-        module: function () {
-            if (null == global_indexs[this.status.selname]) {
-                return null;
-            }
+        el: '#app-module-detial',
+        data: {
+            status: global_status,
+            tasks: global_tasks,
+        },
+        computed: {
+            module: function () {
+                if (null == global_indexs[this.status.selname]) {
+                    return null;
+                }
 
-            return global_modules[global_indexs[this.status.selname].index];
-        }
-    }
-});
+                return global_modules[global_indexs[this.status.selname].index];
+            },
+            task: function () {
+                var m = this.module;
+                return this.tasks[m.name];
+            },
+            success_percent: function () {
+                var t = this.task;
+                if (null == t) {
+                    return 70;
+                }
+
+                var p = t.success + t.failure;
+                if (0 == p) {
+                    return 0;
+                }
+
+                return Math.ceil(t.success * 100 / p);
+            },
+            failure_percent: function () {
+                var t = this.task;
+                if (null == t) {
+                    return 30;
+                }
+
+                var p = t.success + t.failure;
+                if (0 == p) {
+                    return 0;
+                }
+
+                return Math.ceil(t.failure * 100 / p);
+            },
+        },
+
+    })
+;
