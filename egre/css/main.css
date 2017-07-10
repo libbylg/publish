@@ -95,8 +95,18 @@ textarea {
    Author's custom styles
    ========================================================================== */
 
-.calendar-day {
+.calendar-month {
+    width: 1024px;
+}
 
+.calendar-week {
+    width: 100%;
+}
+
+.calendar-day {
+    width: 14%;
+    border: 2px solid red;
+    display: inline;
 }
 
 /* ==========================================================================
