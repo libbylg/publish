@@ -103,10 +103,23 @@ textarea {
     width: 100%;
 }
 
+.calendar-header {
+    width: 100%;
+    background-color: gray;
+}
+
 .calendar-day {
-    width: 14%;
+    width: 12%;
+    height: 5em;
+    line-height: 5em;
+    text-align: center;
     border: 2px solid red;
-    display: inline;
+    display: inline-block;
+
+}
+
+.calendar-plan-detial {
+
 }
 
 /* ==========================================================================

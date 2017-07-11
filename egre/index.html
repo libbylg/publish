@@ -24,19 +24,27 @@
 <!-- Add your site or application content here -->
 <p>Hello world! This is HTML5 Boilerplate.</p>
 
-<div id="app-calendar">
-    <div class="calendar-month" v-for="week in calendar.weeksOfMonth()">
-        <div class="calendar-week">
-            <div class="calendar-day" v-for="week in 7">{{week}}</div>
+<div class="calendar-month" id="app-calendar">
+    <!--日历表头-->
+    <div class="calendar-header">
+        <div>
+            <div class="calendar-day" v-for="weekday in 7"> {{weekday}}</div>
         </div>
-        <div class="plan-detial"></div>
+    </div>
+
+    <!--日历表格-->
+    <div class="calendar-week" v-for="week in weeksOfMonth">
+        <div>
+            <div class="calendar-day" v-for="weekday in 7"> {{dayOf(week, weekday)}}</div>
+        </div>
+        <div class="calendar-plan-detial"></div>
     </div>
 </div>
 
-<!--<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>-->
-<!--<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.12.0.min.js"><\/script>')</script>-->
-<!--<script src="js/plugins.js"></script>-->
-<!--<script src="js/main.js"></script>-->
+<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.12.0.min.js"><\/script>')</script>
+<script src="js/plugins.js"></script>
+<script src="js/main.js"></script>
 
 <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
 <!--<script>-->

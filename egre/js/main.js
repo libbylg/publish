@@ -26,7 +26,10 @@ var global_calendar = {
         if ((index < 0) || (index >= this.table.length)) {
             return null;
         }
-        return Date.parse(this.table[index]);
+        console.log("pppppp index", index);
+        var date = Date.parse(this.table[index]);
+        console.log(date);
+        return date;
     },
     indexOfDay: function (day) {
         return ((day + this.index_begin) - 1);
@@ -59,6 +62,23 @@ var AppCalendar = new Vue({
     data: {
         calendar: global_calendar
     },
+    computed: {
+        weeksOfMonth: function () {
+            console.log("ttttttttttttttttt");
+            return this.calendar.weeksOfMonth();
+        },
+        name: function () {
+            console.log("yyyyyyyyyyyyyyyyyyy");
+            return "yyyyyyyyyyy";
+        }
+    },
+    methods: {
+        dayOf: function (week, index) {
+            var date = this.calendar.dateOfIndex((week - 1) * 7 + (index - 1));
+            console.log("pppppp", date);
+            return String(date.getDay());
+        }
+    }
 });
 
 
