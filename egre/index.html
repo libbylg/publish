@@ -37,7 +37,7 @@
         <div>
             <div class="calendar-day" v-for="weekday in 7"> {{dayOf(week, weekday)}}</div>
         </div>
-        <div class="calendar-plan-detial"></div>
+        <div class="calendar-plan-detial" v-if="week == selWeekIndex">{{String(week) + '*******' + String(selWeekIndex)}}</div>
     </div>
 </div>
 
