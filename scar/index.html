@@ -13,119 +13,135 @@
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/main.css">
     <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+
+    <link rel="stylesheet" href="css/bootstrap.css">
+
+    <script src="js/vendor/bootstrap.js"></script>
+
+    <script src="js/vendor/vue.js"></script>
 </head>
+
 <body>
 <!--[if lt IE 8]>
 <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
     your browser</a> to improve your experience.</p>
 <![endif]-->
 
-<!-- Add your site or application content here -->
-<h1>塞包状态</h1>
-<p>Hello world! This is HTML5 Boilerplate.</p>
 
-<div class="taskflow">
-    <button class="taskflow-summary">关闭塞包工作流</button>
-    <div>
-        <p>当前用户: 刘刚 l00257437</p>
-        <p>VMP版本: V600R001C01SPC400B312</p>
-        <p>塞包步骤:</p>
-        <p>xxxxxx</p>
+<div class="main-frame">
+
+    <div class="navbar">
+        <div class="navbar-inner">
+            <a class="brand" href="#">Title</a>
+            <ul class="nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#">Link</a></li>
+                <li><a href="#">Link</a></li>
+            </ul>
+        </div>
     </div>
+
+    <!-- Add your site or application content here -->
+    <div class="title">
+        <h1>塞包状态</h1>
+        <button class="btn  btn-small btn-inverse  std-width">我要提意见</button>
+    </div>
+
+    <hr class="line"/>
+
+    <div id="app-taskflow">
+        <div class="section">
+            <h4>当前塞包工作流</h4>
+            <button class="btn btn-primary std-width" type="button">关闭塞包工作流</button>
+        </div>
+        <div>
+            <div>
+                <span class="label label-success">当前用户</span>
+                <span class="">{{context.current_user.userName + ' ' + context.current_user.userId}}</span>
+            </div>
+            <div>
+                <span class="label label-success">VMP版本</span>
+                <span class="">{{taskflow.vmpDir}}</span>
+            </div>
+            <div>
+                <span class="label label-success">塞包步骤:</span>
+                <p v-for="step in rules.steps">{{step}}</p>
+            </div>
+            <div>
+                <span class="label label-success">注意事项:</span>
+                <p v-for="tip in rules.tips">{{tip}}</p>
+            </div>
+        </div>
+    </div>
+
+    <hr class="line"/>
+
+    <div class="task-queue" id="app-task-queue">
+        <div class="section">
+            <h4>塞包队列</h4>
+            <button class="btn btn-primary std-width">我要塞包</button>
+        </div>
+
+
+        <table class="task-table">
+            <tr>
+                <th>塞包人</th>
+                <th>开始塞包时间</th>
+                <th>任务状态</th>
+                <th></th>
+                <th></th>
+            </tr>
+
+            <tr v-for="task in queue">
+                <td>
+                    <span >{{task.userName + ' ' + task.userId}}</span>
+                </td>
+                <td>
+                    <span>{{task.scarBegin}}</span>
+                </td>
+                <td>
+                    <span class="label">{{task_status_string(task)}}</span>
+                </td>
+                <td>
+                    <button class="btn btn-mini btn-danger" v-if="task.status=='scaring'">取消</button>
+                </td>
+                <td>
+                    <button class="btn btn-mini btn-primary" v-if="task.status=='scaring'">提交</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <hr/>
+    <div id="app-task-complated">
+        <h4>已完成的塞包任务</h4>
+        <table class="task-table">
+            <tr>
+                <th>塞包人</th>
+                <th>开始时间</th>
+                <th>完成时间</th>
+                <th>塞包耗时</th>
+                <th>塞包模块</th>
+                <th>塞包原因</th>
+            </tr>
+            <tr v-for="task in complated">
+                <td>
+                    <span>{{task.userName + ' ' + task.userId}}</span>
+                </td>
+                <td>
+                    <span>{{task.scarBegin}}</span>
+                </td>
+                <td>
+                    <span class="label label-default">{{task_status_string(task)}}</span>
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+
+
 </div>
-
-<div>
-    <button class="taskflow-summary">我要塞包</button>
-</div>
-
-<div>
-    <h4>塞包队列</h4>
-    <table>
-        <tr>
-            <th>塞包人</th>
-            <th>开始塞包时间</th>
-            <th>任务状态</th>
-            <th></th>
-            <th></th>
-            <th></th>
-        </tr>
-        <tr>
-            <td>刘刚 l00257437</td>
-            <td>2017-07-14 14:20:33</td>
-            <td>正在塞包</td>
-            <td><button>详情</button></td>
-            <td><button>取消</button></td>
-            <td><button>提交</button></td>
-        </tr>
-        <tr>
-            <td colspan="6">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</td>
-        </tr>
-        <tr>
-            <td>刘刚 l00257437</td>
-            <td>2017-07-14 14:20:33</td>
-            <td>正在排队</td>
-            <td><button>详情</button></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>刘刚 l00257437</td>
-            <td>2017-07-14 14:20:33</td>
-            <td>正在排队</td>
-            <td><button>详情</button></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>刘刚 l00257437</td>
-            <td>2017-07-14 14:20:33</td>
-            <td>正在排队</td>
-            <td><button>详情</button></td>
-            <td></td>
-            <td></td>
-        </tr>
-    </table>
-</div>
-
-<div>
-    <h4>塞包完成队列</h4>
-    <table>
-        <tr>
-            <th>塞包人</th>
-            <th>开始时间</th>
-            <th>完成时间</th>
-            <th>塞包耗时</th>
-            <th>塞包模块</th>
-            <th>塞包原因</th>
-        </tr>
-        <tr>
-            <td>刘刚 l00257437</td>
-            <td>2017-07-14 14:20:33</td>
-            <td>正在排队</td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>刘刚 l00257437</td>
-            <td>2017-07-14 14:20:33</td>
-            <td>正在排队</td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>刘刚 l00257437</td>
-            <td>2017-07-14 14:20:33</td>
-            <td>正在排队</td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-    </table>
-</div>
-
-
 <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
 <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.12.0.min.js"><\/script>')</script>
 <script src="js/plugins.js"></script>
